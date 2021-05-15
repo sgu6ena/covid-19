@@ -377,7 +377,7 @@
  
  .rating-control {
      background: #fff;
-     font-size: 28px;
+     font-size: 24px;
      color: lightgrey;
      box-shadow: 0px 5px 50px rgba(87, 1, 0, 0.1);
      border-radius: 6.16667px;
@@ -389,8 +389,12 @@
      height: 48px;
      background: transparent;
      border: none;
-     font-size: 28px;
+     font-size: 40px;
      color: lightgrey;
+ }
+ 
+ .arrow-right {
+     color: #FA5652;
  }
  
  .contact {
@@ -523,11 +527,20 @@
      .social-links {
          justify-content: center;
      }
+     .input-group {
+         width: 600px;
+     }
  }
  
  @media (max-width:767px) {
+     .contagion {
+         margin-top: 20px;
+     }
      .worldmap {
          display: none;
+     }
+     .input-group {
+         width: 400px;
      }
      .navigation {
          display: block;
