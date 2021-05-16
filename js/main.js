@@ -1,14 +1,14 @@
-const COLOR1 = '622942';
-const COLOR2 = '82374f';
-const COLOR3 = 'b65164';
-const COLOR4 = 'fe7780';
-const COLOR5 = 'ffada0';
+// const COLOR1 = '622942';
+// const COLOR2 = '82374f';
+// const COLOR3 = 'b65164';
+// const COLOR4 = 'fe7780';
+// const COLOR5 = 'ffada0';
 
-// const COLOR1 = 'ff441a';
-// const COLOR2 = 'ff8903';
-// const COLOR3 = 'ffd341';
-// const COLOR4 = 'ffff87';
-// const COLOR5 = 'ffffc0';
+const COLOR1 = 'ff441a';
+const COLOR2 = 'ff8903';
+const COLOR3 = 'ffd341';
+const COLOR4 = 'ffff87';
+const COLOR5 = 'ffffc0';
 
 
 const urlApiCovid = 'https://api.covid19api.com/summary';
@@ -17,6 +17,7 @@ const $ratingTable = document.querySelector('.rating-table');
 const $ratingControl = document.querySelector('.rating-control');
 let page = 0;
 let maxPage = 0;
+const $mapInfo = document.querySelector('.map-info');
 
 //создание карты
 const map = new WorldMap({
@@ -26,15 +27,15 @@ const map = new WorldMap({
 });
 
 //получение статистики
-const getStatistic = (url) => {
-    return fetch(url)
+const getStatistic = () => {
+    return fetch(urlApiCovid)
         .then(response => response.json())
         .then(data => data.Countries.sort((a, b) => a.NewConfirmed > b.NewConfirmed ? -1 : 1))
 }
 
 //раскрашивание карты в зависимости от заболевших
 const colorMap = () => {
-    getStatistic(urlApiCovid).then(data => {
+    getStatistic().then(data => {
         maxPage = Math.floor(data.length / 6);
         for (key in data) {
             let color = '';
@@ -67,7 +68,7 @@ const colorMap = () => {
 
 //построение рейтинга стран
 const rating = (page) => {
-    getStatistic(urlApiCovid).then(data => {
+    getStatistic().then(data => {
         maxPage = Math.floor(data.length / 6);
         $ratingTable.innerHTML = '';
         for (let i = page * 6; i < (page + 1) * 6 && i < data.length; i++) {
@@ -113,3 +114,39 @@ $ratingControl.addEventListener('click', (event) => {
 
 rating(page);
 colorMap();
+
+$map.addEventListener('click', (event) => {
+    const target = event.target;
+    const parent = target.closest('g');
+    if(parent?.id)
+    {
+        $mapInfo.setAttribute('style', 'visibility:visible;')
+       getStatistic().then(data=>{ 
+           data.filter((key)=>{
+           if('g'+key['CountryCode'] == parent.id){
+            $mapInfo.innerHTML=`
+            <div class="country-statistic ">${key.Country}</div>
+            <div class="statistic "> 
+                <div class="confirmed ">
+                    <div class="text col">New Confirmed: ${key.NewConfirmed}</div>
+                    <div class="text col">Total Confirmed: ${key.TotalConfirmed} </div>
+                </div>
+                <div class="death ">
+                    <div class="text col">New Deaths: ${key.NewDeaths}</div>
+                    <div class="text col">Total Deaths: ${key.TotalDeaths}</div>
+                </div>
+                <div class="recovered  ">
+                    <div class="text col">New Recovered: ${key.NewRecovered}</div>
+                    <div class="text col">Total Recovered: ${key.TotalRecovered}</div>
+                </div>
+                
+            `
+                }
+            })
+        });
+        
+    } else
+        $mapInfo.setAttribute('style', 'visibility:hidden;')
+ 
+})
+

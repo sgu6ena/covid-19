@@ -318,20 +318,55 @@
  .map {
      background: linear-gradient(360deg, rgba(255, 241, 241, 0.5) 0%, rgba(255, 241, 241, 0) 108.69%);
  }
- 
+ .worldmap-wrapper{
+     margin-top:-100px;
+    margin-left: -70px;
+ }
  .worldmap {
-     margin-left: -150px;
-     fill: rgba(250, 86, 82, .7);
-     stroke: black;
-     stroke-width: 0.2px;
+     /* background:hsl(195, 53%,80%) ; */
+  fill: rgba(250, 86, 82, .7);
+     stroke: white;
+     stroke-width: 0.5px;
+     opacity: 0.9;
+     
  }
  
  .worldmap:hover {
-     fill: #FB4C47;
-     stroke: black;
-     stroke-width: 0.1px;
+
+    opacity: 1;
+     stroke: white;
+     stroke-width: 1px;
  }
+.map-info{
+    visibility: hidden;
  
+    margin-top: -100px;
+
+    /* border:#4B4F51 1px solid; */
+}
+
+.country-statistic{
+    font-weight: 500;
+     font-size: 31px;
+     line-height: 37px;
+     color: #13615F;
+     text-align: left;
+     margin-bottom: 10px;
+}
+.confirmed,
+.death,
+.recovered{
+    display: flex;
+    justify-content: flex-start;
+}
+ .text{
+     margin-right: 30px;font-weight: 500;
+     font-size: 24px;
+     line-height: 29px;
+     /* identical to box height */
+     text-align: left;
+     color: #035755;
+ }
  .rating-card {
      background: linear-gradient(360deg, #FFFBFB -79.45%, #FDFDFD 105.35%);
      box-shadow: 0px 7px 95px rgba(0, 0, 0, 0.07);
@@ -468,18 +503,35 @@
      list-style: none;
  }
  
- @media(max-width: 1200px) {
-     .worldmap {
+ @media(max-width: 1200px) {     
+     .worldmap-case
+     {
+        padding-bottom: 30px;
+    }
+     .worldmap-wrapper 
+     {
          margin-left: 0;
          margin-bottom: 0;
      }
+     .map-info{
+        margin-left: 50px;
+    } 
  }
  
  @media(max-width: 991px) {
-     .worldmap {
-         margin-left: 0;
-         transform: scale(0.8)
+     .worldmap-case{
+        padding-bottom: 30px;
      }
+     .worldmap-wrapper{
+         margin-left: -50px;
+         transform: scale(0.8);
+        
+     }
+      .map-info{
+         margin-left: 50px;
+        
+         
+     } 
      body {
          text-align: center;
      }
@@ -527,16 +579,14 @@
      .social-links {
          justify-content: center;
      }
-     .input-group {
-         width: 600px;
-     }
+    
  }
  
  @media (max-width:767px) {
      .contagion {
          margin-top: 20px;
      }
-     .worldmap {
+     .worldmap-case {
          display: none;
      }
      .input-group {
@@ -554,4 +604,26 @@
      .social-links {
          justify-content: center;
      }
+ }
+
+ @media(max-width: 576px) {
+.rating{
+    flex-direction: column;
+}
+
+    .country { 
+        flex-direction: column;
+    }
+    .country-name{
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .img-arrow{
+        visibility: hidden;
+    }
+
+    .input-group {
+        width: 300px;
+    }
  }
