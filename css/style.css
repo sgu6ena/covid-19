@@ -324,7 +324,7 @@
  }
  .worldmap {
      /* background:hsl(195, 53%,80%) ; */
-  fill: rgba(250, 86, 82, .7);
+  fill: #128e5a;
      stroke: white;
      stroke-width: 0.5px;
      opacity: 0.9;
